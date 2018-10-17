@@ -1,0 +1,9 @@
+/**app.wxss**/
+.has-footer{
+  padding-bottom: 50px;
+}
+.tab-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

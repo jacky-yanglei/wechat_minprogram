@@ -1,0 +1,4 @@
+<!--pages/login/login.wxml-->
+<view class='container'>
+  <i-button open-type='getUserInfo' bindgetuserinfo='bindGetUserInfo'>登录</i-button>
+</view>

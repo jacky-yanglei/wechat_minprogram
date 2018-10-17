@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<view class="has-footer">
+  <view class="container tab-page {{ current==='homepage' ? 'show':'' }}">
+    <swiper indicator-dots="{{ true }}" class='swiper' style="width: {{ screenWidth }}px;height: {{ 0.571*screenWidth }}px;">
+      <block wx:for="{{imgUrls}}" wx:key="index">
+        <swiper-item>
+          <image src="{{item}}" 
+          style="width: 100%;height: 100%;"
+          mode="aspectFill"
+          class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view>
+      <view wx:for="{{ cardList }}" class="card" wx:key="index">
+        <image src="{{ item.src }}" style="width: 100%;height:200px;" mode="aspectFill" />
+        <view class="title">
+          <text>{{ item.title }}</text>
+        </view>
+        <view class="dec">
+          <text>{{ item.dec }}</text>
+        </view>
+        <view>
+          <i-button>加入购物车</i-button>
+          <i-button>立即下单</i-button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="tab-page {{ current==='mine' ? 'show':'' }}">
+    <text>我的</text>
+  </view>
+</view>
+<view class='tab-footer'>
+  <i-tab-bar current="{{ current }}" bindchange="handleChange">
+    <i-tab-bar-item key="homepage" icon="shop_fill" current-icon="shop_fill" title="首页"></i-tab-bar-item>
+    <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
+  </i-tab-bar>
+</view>
