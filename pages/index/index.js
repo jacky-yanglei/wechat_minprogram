@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    userInfo: app.globalData.userInfo,
     imgUrls: [
       "http://112.74.49.74:3000/img03.jpg",
       "http://112.74.49.74:3000/img04.jpg"
@@ -24,15 +25,15 @@ Page({
         dec: "土豪牌耗牛干，源自海拔3800米以上高原，和雪水，吃虫草根；肉质鲜美，真正的纯天然食品，欢迎品味藏民秘制风干耗牛肉。"
       }
     ],
-    current: 'homepage'
+    current: 'mine'
   },
   onLoad() {
+    this.handleChange({detail:{key: 'mine'}});
     this.init();
   },
   init() {
     wx.getSystemInfo({
       success: res => {
-        console.log(res);
         this.setData({
           screenWidth: res.screenWidth,
           screenHeight: res.screenHeight
@@ -41,6 +42,19 @@ Page({
     })
   },
   handleChange({ detail }) {
+    if ( detail.key === 'mine' ) {
+      if (!this.data.userinfo) {
+        wx.getUserInfo({
+          success: res => {
+            this.setData({
+              userInfo: res.userInfo
+            })
+            console.log(res);
+            app.globalData.userInfo = res.userInfo;
+          }
+        })
+      }
+    }
     this.setData({
       current: detail.key
     });

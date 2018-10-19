@@ -65,6 +65,7 @@ Page({
   },
   bindGetUserInfo: (event) => {
     if (event.detail.errMsg.indexOf('ok') !== -1) {
+      wx.setStorageSync('userInfo', event.detail.userInfo);
       wx.navigateBack({
         delta: 1
       })

@@ -1,11 +1,6 @@
 //app.js
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: res => {
@@ -20,7 +15,8 @@ App({
     // 获取用户信息
     wx.getUserInfo({
       withCredentials: true,
-      success: function (res) {
+      success: res => {
+        this.globalData.userInfo = res.userInfo;
       },
       fail: function () {
         //获取用户信息失败后。请跳转授权页面

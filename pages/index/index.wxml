@@ -28,7 +28,22 @@
     </view>
   </view>
   <view class="tab-page {{ current==='mine' ? 'show':'' }}">
-    <text>我的</text>
+    <view class="mine">
+      <view class="userinfo">
+        <view>
+          <image src="{{ userInfo.avatarUrl }}"/>
+          <view>
+            <text>{{ userInfo.nickName }}</text>
+          </view>
+        </view>
+      </view>
+      <view>
+        <i-cell-group>
+            <i-cell title="收货地址" is-link value="修改" url="/pages/address/address"></i-cell>
+            <i-cell title="我的订单" is-link value="查看" url="/pages/orders/orders"></i-cell>
+        </i-cell-group>
+      </view>
+    </view>
   </view>
 </view>
 <view class='tab-footer'>
