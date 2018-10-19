@@ -1,0 +1,4 @@
+<!--pages/orders/orders.wxml-->
+<view>
+  <text>订单</text>
+</view>

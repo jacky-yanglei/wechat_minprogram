@@ -1,0 +1,4 @@
+<!--pages/address/address.wxml-->
+<view>
+  <text>收货地址</text>
+</view>
