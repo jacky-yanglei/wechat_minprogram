@@ -13,15 +13,18 @@
     </swiper>
     <view>
       <view wx:for="{{ cardList }}" class="card" wx:key="index">
-        <image src="{{ item.src }}" style="width: 100%;height:200px;" mode="aspectFill" />
+        <image src="{{ item.goods_pic_url }}" style="width: 100%;height:200px;" mode="aspectFill" />
         <view class="title">
-          <text>{{ item.title }}</text>
+          <text>{{ item.goods_name }}</text>
         </view>
         <view class="dec">
-          <text>{{ item.dec }}</text>
+          <text>{{ item.goods_dec }}</text>
+        </view>
+        <view class="price">
+          <text>${{ item.goods_price }}</text><text>/500g</text>
         </view>
         <view>
-          <i-button bindtap='addShoppingCart' id='{{ item.id }}'>加入购物车</i-button>
+          <i-button bindtap='addShoppingCart' id='{{ item._id }}'>加入购物车</i-button>
           <i-button>立即下单</i-button>
         </view>
       </view>

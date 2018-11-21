@@ -26,8 +26,14 @@
   margin: 0 10px 10px;
   border: 1px solid #eee;
 }
-.card .title, .card .dec {
+.card .title, .card .dec, .card .price {
   padding: 0 10px;
+}
+.card .price {
+  text-align: right;
+}
+.card .price>text:last-child {
+  font-size: 12px;
 }
 .card .title {
   font-weight: bold;

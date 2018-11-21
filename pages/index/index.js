@@ -1,31 +1,18 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const utils = require('../../utils/util.js');
+
 Page({
   data: {
     userInfo: null,
     imgUrls: [
-      app.globalData.staticUrl + "/img03.jpg",
-      app.globalData.staticUrl + "/img04.jpg"
+      app.globalData.staticUrl + "/wechatmini/img03.jpg",
+      app.globalData.staticUrl + "/wechatmini/img04.jpg"
     ],
     screenWidth: 0,
     screenHeight:0,
-    cardList: [
-      {
-        id: '1111',
-        // src: "https://fakeimg.pl/250x100/",
-        src: app.globalData.staticUrl + "/img01.jpg",
-        title: "土豪牌耗牛干 (五香味)",
-        dec: "土豪牌耗牛干，源自海拔3800米以上高原，和雪水，吃虫草根；肉质鲜美，真正的纯天然食品，欢迎品味藏民秘制风干耗牛肉。"
-      },
-      {
-        id: '2222',
-        // src: "https://fakeimg.pl/250x100/",
-        src: app.globalData.staticUrl + "/img01.jpg",
-        title: "土豪牌耗牛干 (麻辣味)",
-        dec: "土豪牌耗牛干，源自海拔3800米以上高原，和雪水，吃虫草根；肉质鲜美，真正的纯天然食品，欢迎品味藏民秘制风干耗牛肉。"
-      }
-    ],
+    cardList: [],
     current: 'home',
     shoppingCartData: app.globalData.shoppingData,
     shoppingCount: 0
@@ -44,6 +31,18 @@ Page({
     })
     this.getUserInfo();
     this.getShoppingCart();
+    this.getGoodsInfo();
+  },
+  getGoodsInfo: function() {
+    utils.getGoodsList((data) => {
+      for (let i = 0; i < data.data.length; i++) {
+        data.data[i].goods_pic_url = app.globalData.staticUrl + data.data[i].goods_pic_url
+      }
+      this.setData({
+        cardList:data.data
+      })
+      console.log(data)
+    })
   },
   getUserInfo: function() {
     if (!this.data.userInfo) {

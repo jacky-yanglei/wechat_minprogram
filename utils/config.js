@@ -1,4 +1,4 @@
 module.exports = {
   apiUrl: 'http://localhost:3000/wechat/mini',
-  staticUrl: 'http://localhost:3000/wechatmini'
+  staticUrl: 'http://localhost:3000'
 }

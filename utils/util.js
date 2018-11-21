@@ -37,8 +37,18 @@ const addShoppingCart = (params,callback) => {
     }
   })
 }
-
+// 获取商品列表信息
+const getGoodsList = callback => {
+  wx.request({
+    url: configData.apiUrl + '/goods_list',
+    method: 'get',
+    success: (res) => {
+      callback(res.data);
+    }
+  })
+}
 module.exports = {
   formatTime: formatTime,
-  getShoppingCartDetails: getShoppingCartDetails
+  getShoppingCartDetails: getShoppingCartDetails,
+  getGoodsList: getGoodsList
 }

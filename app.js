@@ -18,18 +18,21 @@ App({
               code: res.code
             },
             success: res => {
-              this.globalData.userId = res.data.data.userID;
-              utils.getShoppingCartDetails({ id: res.data.data.userID },res => {
-                if (res.data.shoppingData){
-                  this.globalData.shoppingData = res.data.shoppingData;
-                }else{
-                  this.globalData.shoppingData = [];
-                }
-                init++;
-                if (init === 2) {
-                  wx.hideLoading();
-                }
-              })
+              if(res.data.code === 200){
+                console.log(res.data);
+                this.globalData.userId = res.data.data.userID;
+                utils.getShoppingCartDetails({ id: res.data.data.userID }, res => {
+                  if (res.data.shoppingData) {
+                    this.globalData.shoppingData = res.data.shoppingData;
+                  } else {
+                    this.globalData.shoppingData = [];
+                  }
+                  init++;
+                  if (init === 2) {
+                    wx.hideLoading();
+                  }
+                })
+              }
             },
             fail: () => {
 
