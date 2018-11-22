@@ -13,9 +13,11 @@ Page({
     screenWidth: 0,
     screenHeight:0,
     cardList: [],
-    current: 'home',
+    current: 'shoppingcart',
     shoppingCartData: app.globalData.shoppingData,
-    shoppingCount: 0
+    shoppingCount: 0,
+    shoppingBalance: 0,
+    globalData: app.globalData
   },
   onLoad() {
     this.init();
@@ -35,13 +37,9 @@ Page({
   },
   getGoodsInfo: function() {
     utils.getGoodsList((data) => {
-      for (let i = 0; i < data.data.length; i++) {
-        data.data[i].goods_pic_url = app.globalData.staticUrl + data.data[i].goods_pic_url
-      }
       this.setData({
         cardList:data.data
       })
-      console.log(data)
     })
   },
   getUserInfo: function() {
@@ -59,9 +57,15 @@ Page({
   },
   getShoppingCart: function() {
     if (app.globalData.shoppingData) {
+      let num = 0;
+      for (let i = 0; i < app.globalData.shoppingData.length; i++) {
+        num += app.globalData.shoppingData[i].count * app.globalData.shoppingData[i].price
+      }
       this.setData({
-        shoppingCount: app.globalData.shoppingData.length
-      })
+        shoppingCount: app.globalData.shoppingData.length,
+        shoppingCartData: app.globalData.shoppingData,
+        shoppingBalance: num
+      });
     }else {
       setTimeout(() => {
         this.getShoppingCart()
@@ -69,8 +73,16 @@ Page({
     }
   },
   addShoppingCart: function(evet) {
-    let id = evet.target.id;
+    let id = evet.target.id, price, goods_pic_url, name;
+    for (let i = 0; i < this.data.cardList.length; i++) {
+      if (this.data.cardList[i]._id === id){
+        price = this.data.cardList[i].goods_price;
+        goods_pic_url = this.data.cardList[i].goods_pic_url
+        name = this.data.cardList[i].goods_name
+      }
+    }
     let init = false;
+    console.log(app.globalData.shoppingData);
     for (let i = 0; i < app.globalData.shoppingData.length; i++) {
       if (app.globalData.shoppingData[i].id === id) {
         init = true;
@@ -83,7 +95,10 @@ Page({
     if(!init){
       app.globalData.shoppingData.push({
         id: id,
-        count: 1
+        count: 1,
+        price: price,
+        pic_url: goods_pic_url,
+        name: name
       });
     }
     this.getShoppingCart();
@@ -95,7 +110,7 @@ Page({
         shoppingData: app.globalData.shoppingData
       },
       success: res => {
-        if(res.code === 200){
+        if(res.data.code === 200){
           console.log('添加购物车成功');
         }
       }
@@ -105,5 +120,12 @@ Page({
     this.setData({
       current: detail.key
     });
+    if (detail.key === 'home') {
+      wx.setNavigationBarTitle({title: "土豪牌"})
+    } else if (detail.key === 'shoppingcart') {
+      wx.setNavigationBarTitle({ title: "购物车" })
+    } else if (detail.key === 'mine') {
+      wx.setNavigationBarTitle({ title: "我的" })
+    }
   }
 })

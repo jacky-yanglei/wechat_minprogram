@@ -19,7 +19,6 @@ App({
             },
             success: res => {
               if(res.data.code === 200){
-                console.log(res.data);
                 this.globalData.userId = res.data.data.userID;
                 utils.getShoppingCartDetails({ id: res.data.data.userID }, res => {
                   if (res.data.shoppingData) {

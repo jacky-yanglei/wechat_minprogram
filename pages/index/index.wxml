@@ -13,7 +13,7 @@
     </swiper>
     <view>
       <view wx:for="{{ cardList }}" class="card" wx:key="index">
-        <image src="{{ item.goods_pic_url }}" style="width: 100%;height:200px;" mode="aspectFill" />
+        <image src="{{ globalData.staticUrl + item.goods_pic_url }}" style="width: 100%;height:200px;" mode="aspectFill" />
         <view class="title">
           <text>{{ item.goods_name }}</text>
         </view>
@@ -31,7 +31,26 @@
     </view>
   </view>
   <view class="tab-page {{ current==='shoppingcart' ? 'show':'' }}">
-    购物车
+    <view>
+      <view wx:for="{{ shoppingCartData }}" class="cart-list" wx:key="index" wx:for-item="item">
+        <view>
+          <image src="{{ globalData.staticUrl + item.pic_url }}" style="width: 100%;height: 100%;" mode="aspectFit"/>
+        </view>
+        <view>
+          <view>
+            <view>{{ item.name }}</view>
+            <view>$<text>{{ item.price }}</text></view>
+            <view>数量:{{ item.count }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="balance-block">
+      <view>总计:<text>{{ shoppingBalance }}</text>元</view>
+      <view>
+        结算
+      </view>
+    </view>
   </view>
   <view class="tab-page {{ current==='mine' ? 'show':'' }}">
     <view class="mine">
@@ -55,7 +74,7 @@
 <view class='tab-footer'>
   <i-tab-bar current="{{ current }}" bindchange="handleChange">
     <i-tab-bar-item key="home" icon="shop_fill" current-icon="shop_fill" title="首页"></i-tab-bar-item>
-    <i-tab-bar-item key="shoppingcart" icon="publishgoods_fill" current-icon="publishgoods_fill" title="购物车"></i-tab-bar-item>
+    <i-tab-bar-item key="shoppingcart" icon="publishgoods_fill" count="{{ shoppingCount }}" current-icon="publishgoods_fill" title="购物车"></i-tab-bar-item>
     <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
   </i-tab-bar>
 </view>
